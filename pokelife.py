@@ -35,41 +35,49 @@ element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img'
 element.click()
 time.sleep(0.2)
 
-while (True):
-    try:
-        xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
-        text = xPA.text
-        PA = int(text.split('/')[0].strip())
-        if PA < 5:
-            break
-        #wybranie pokemona
-        element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
-        element.click()
-        time.sleep(0.5)
-    except NoSuchElementException:
+def petla_expienie():
+    while (True):
         try:
-            #kontynuuj
-            element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div[2]/div/div/button[2]')
+            xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
+            text = xPA.text
+            PA = int(text.split('/')[0].strip())
+            if PA < 5:
+                break
+            #wybranie pokemona
+            element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
             element.click()
+            time.sleep(0.5)
         except NoSuchElementException:
             try:
-                #pokeball
-                element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
+                #kontynuuj
+                element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div[2]/div/div/button[2]')
                 element.click()
             except NoSuchElementException:
-                try: 
-                    #kontynuj po trenerze
-                    element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[6]/div/div/button[2]')
-                    driver.execute_script("arguments[0].scrollIntoView();", element)
+                try:
+                    #pokeball
+                    element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
                     element.click()
                 except NoSuchElementException:
                     try: 
-                        #kontynuj po walce z pokemonem z za duzym poziomem
-                        element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[4]/div/div/button[2]')
+                        #kontynuj po trenerze
+                        element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[6]/div/div/button[2]')
+                        driver.execute_script("arguments[0].scrollIntoView();", element)
                         element.click()
                     except NoSuchElementException:
-                        try:
-                            element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div/div/div/button[2]')
+                        try: 
+                            #kontynuj po walce z pokemonem z za duzym poziomem
+                            element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[4]/div/div/button[2]')
                             element.click()
                         except NoSuchElementException:
-                            break
+                            try:
+                                element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div/div/div/button[2]')
+                                element.click()
+                            except NoSuchElementException:
+                                break
+time.sleep(3)
+element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
+element.click()
+time.sleep(3)
+element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/ul/li[1]/a')
+element.click()
+time.sleep(10)
