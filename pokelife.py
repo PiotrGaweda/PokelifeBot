@@ -19,7 +19,6 @@ driver.get("https://pokelife.pl")
 time.sleep(2)
 driver.maximize_window()
 
-
 #logowanie
 search = driver.find_element(by=By.NAME, value='login')
 search.send_keys(nick)
@@ -28,9 +27,14 @@ search.send_keys(haslo)
 element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")  
 element.click()
 
-#czekanie na logowanie
-driver.implicitly_wait(1)
+#czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
+driver.implicitly_wait(0.1)
 
+#liczenie PA
+time.sleep(3)
+PA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
+
+#wejscie w dzicz
 element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img')
 element.click()
 time.sleep(0.2)
