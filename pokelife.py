@@ -28,19 +28,20 @@ element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")
 element.click()
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.1)
-
-#liczenie PA
-time.sleep(3)
-PA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
+driver.implicitly_wait(0.2)
 
 #wejscie w dzicz
 element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img')
 element.click()
 time.sleep(0.2)
 
-while True:
+while (True):
     try:
+        xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
+        text = xPA.text
+        PA = int(text.split('/')[0].strip())
+        if PA < 5:
+            break
         #wybranie pokemona
         element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
         element.click()
