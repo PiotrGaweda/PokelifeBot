@@ -164,4 +164,4 @@ time.sleep(0.2)
 
 petla_expienie()
 
-time.sleep(9999)
+time.sleep(99999)
