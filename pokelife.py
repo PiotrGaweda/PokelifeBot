@@ -12,6 +12,8 @@ nick = "veyreal"
 haslo = "245583lol"
 jaki_pokeball = "2"
 jaki_pokemon = "1"
+jagody_do_zjedzenia = "99"
+energole_do_wypicia = "8"
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -28,16 +30,12 @@ element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")
 element.click()
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.2)
-
-#wejscie w dzicz
-element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img')
-element.click()
-time.sleep(0.2)
+driver.implicitly_wait(0.08)
 
 def petla_expienie():
     while (True):
         try:
+            #sprawdzanie PA
             xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
             text = xPA.text
             PA = int(text.split('/')[0].strip())
@@ -74,10 +72,96 @@ def petla_expienie():
                                 element.click()
                             except NoSuchElementException:
                                 break
-time.sleep(3)
-element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
+def regen():
+    while (True):
+        try:
+            #klikniecie na postać
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
+            element.click()
+            
+            #klikniecie na plecak
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/ul/li[4]/a')
+            element.click()
+            time.sleep(2)
+            
+            #klikniecie na niebieskie jagody jako 5 element
+            element = driver.find_element(By.XPATH,'//*[@id="plecaktab-trener"]/div/div[9]/div/img')
+            element.click()
+            time.sleep(2)
+            
+            #klikniecie na tabelke z jagodami
+            element = driver.find_element(By.XPATH,'//*[@id="plecak-niebieskie_jagody"]/div/div/div[3]/div/div/form/div/input[2]')
+            element.click()
+            time.sleep(2)
+            
+            #wpisanie liczby jagod
+            element.send_keys(jagody_do_zjedzenia)
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="plecak-niebieskie_jagody"]/div/div/div[3]/div/div/form/div/span/button')
+            element.click()
+            
+            #zatwierdzenie
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div/button[2]')
+            element.click()
+            
+            #klikniecie na postac
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
+            element.click()
+            
+            #klikniecie na plecak
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/ul/li[4]/a')
+            element.click()
+            time.sleep(2)
+            
+            #klikniecie na zielone energole jako 1 element
+            element = driver.find_element(By.XPATH,'//*[@id="plecaktab-trener"]/div/div[1]/div/img')
+            element.click()
+            time.sleep(2)
+            
+            #klikniecie na tabelke z energolami
+            element = driver.find_element(By.XPATH,'//*[@id="plecak-zielony_napoj"]/div/div/div[3]/div/div/form/div/input[2]')
+            element.click()
+            time.sleep(2)
+            
+            #wpisanie liczby energoli
+            element.send_keys(energole_do_wypicia)
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="plecak-zielony_napoj"]/div/div/div[3]/div/div/form/div/input[2]')
+            element.click()
+            
+            #zatwierdzenie
+            time.sleep(2)
+            element = driver.find_element(By.XPATH,'//*[@id="plecak-zielony_napoj"]/div/div/div[3]/div/div/form/div/span/button')
+            element.click()
+            time.sleep(2)
+            
+            #zatwierdzenie v2
+            element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div/button[2]')
+            element.click()
+            time.sleep(2)
+            break
+        except NoSuchElementException:
+                                break                       
+
+#wejscie w dzicz
+element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img')
 element.click()
-time.sleep(3)
-element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/ul/li[1]/a')
+time.sleep(0.2)
+
+petla_expienie()
+
+regen()
+
+#wejscie w dzicz
+element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li[2]/a/img')
 element.click()
-time.sleep(10)
+time.sleep(0.2)
+
+petla_expienie()
+
+time.sleep(9999)
