@@ -10,13 +10,13 @@ from selenium.webdriver.common.by import By
 import time 
 import re
 #==========wypelnic==============
-nick = "veyreal"
+nick = "veyrill"
 haslo = "245583lol"
 jaki_pokeball = "2"
 jaki_pokemon = "1"
 jaka_dzicz = "4"
 jagody_do_zjedzenia = "1"
-energole_do_wypicia = "8"
+energole_do_wypicia = "5"
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -33,7 +33,7 @@ element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")
 element.click()
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.09)
+driver.implicitly_wait(0.07)
 
 def petla_expienie():
     while (True):
@@ -44,42 +44,22 @@ def petla_expienie():
             PA = int(text.split('/')[0].strip())
             if PA < 5:
                 break
-            #sprawdzenie czy jest Shiny
-            Shiny = element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[1]/div/div/div[2]/big/strong/i')
-            tekst = Shiny.text
-            if "Shiny" in tekst:
-                time.sleep(999999)
             #wybranie pokemona
             element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
             element.click()
-            time.sleep(0.5)
+            time.sleep(0.4)
         except NoSuchElementException:
             try:
-                #kontynuuj
-                element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div[2]/div/div/button[2]')
+                #pokeball
+                element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
                 element.click()
             except NoSuchElementException:
                 try:
-                    #pokeball
-                    element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
+                    #dzicz
+                    element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li['+str(jaka_dzicz)+']/a/img')
                     element.click()
                 except NoSuchElementException:
-                    try: 
-                        #kontynuj po trenerze
-                        element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[6]/div/div/button[2]')
-                        driver.execute_script("arguments[0].scrollIntoView();", element)
-                        element.click()
-                    except NoSuchElementException:
-                        try: 
-                            #kontynuj po walce z pokemonem z za duzym poziomem
-                            element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[4]/div/div/button[2]')
-                            element.click()
-                        except NoSuchElementException:
-                            try:
-                                element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div/div/div/button[2]')
-                                element.click()
-                            except NoSuchElementException:
-                                break
+                  time.sleep(999)
 def regen():
     while (True):
         try:
