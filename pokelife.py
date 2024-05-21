@@ -132,6 +132,26 @@ def regen():
             element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div/button[2]')
             element.click()
             time.sleep(1)
+            
+            #klikniecie na stowarzyszenie
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[6]/a')
+            element.click()
+            time.sleep(1)
+            
+            #wejscie w twoje stowarzyszenie
+            element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[6]/ul/li[2]/a')
+            element.click()
+            time.sleep(1)
+            
+            #fontanna
+            element = driver.find_element(By.XPATH,'//*[@id="mapa_stowarzyszenia"]/img[68]')
+            element.click()
+            time.sleep(1)
+            
+            #napij sie z fontanny
+            element = driver.find_element(By.XPATH,'//*[@id="opcje-budynku-182423"]/div/div/div[2]/div[2]/div/button')
+            element.click()
+            time.sleep(1)
             break
         except NoSuchElementException:
                                 break                       
