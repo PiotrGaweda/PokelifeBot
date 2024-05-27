@@ -16,7 +16,8 @@ jaki_pokeball = "2"
 jaki_pokemon = "1"
 jaka_dzicz = "4"
 jagody_do_zjedzenia = "1"
-energole_do_wypicia = "5"
+energole_do_wypicia = "1"
+ile_wisniowek = 5
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -33,8 +34,7 @@ element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")
 element.click()
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.07)
-
+driver.implicitly_wait(0.1)
 def petla_expienie():
     while (True):
         try:
@@ -155,6 +155,42 @@ def regen():
             break
         except NoSuchElementException:
                                 break                       
+def wisniowki():
+    for x in range(ile_wisniowek):
+        #klikniecie na postać
+        time.sleep(1)
+        element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
+        element.click()
+        
+        #klikniecie na plecak
+        time.sleep(1)
+        element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/ul/li[4]/a')
+        element.click()
+        time.sleep(1)
+        
+        #klikniecie na wisnowki
+        element = driver.find_element(By.XPATH,'//*[@id="plecaktab-trener"]/div/div[7]/div/img')
+        element.click()
+        time.sleep(1)
+        
+        #klikniecie na tabelke z energolami
+        element = driver.find_element(By.XPATH,'//*[@id="plecak-duzy_napoj_energetyczny"]/div/div/div[3]/div/div/form/div/input[2]')
+        element.click()
+        time.sleep(1)
+        
+        #wpisanie liczby energoli
+        element.send_keys("1")
+        time.sleep(1)
+        element = driver.find_element(By.XPATH,'//*[@id="plecak-duzy_napoj_energetyczny"]/div/div/div[3]/div/div/form/div/span/button')
+        element.click()
+        
+        #zatwierdzenie v2
+        element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div/button[2]')
+        element.click()
+        time.sleep(1)
+        
+        petla_expienie()
+
 
 #wejscie w dzicz
 element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li['+str(jaka_dzicz)+']/a/img')
@@ -171,5 +207,7 @@ element.click()
 time.sleep(0.2)
 
 petla_expienie()
+
+wisniowki()
 
 time.sleep(99999)
