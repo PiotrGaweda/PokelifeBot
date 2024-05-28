@@ -12,9 +12,9 @@ Bot will empty your PA bar, then refill it so it can empty it again. Code will:
 
 
 
-## Find a bug?
+# Find a bug?
 If you found an issue use the issues tab above.
 
-# This is my first real selenium project on github.
+## This is my first real selenium project on github.
 It automated a process which helped free my time
 ![alt text](zdjecie.png)
