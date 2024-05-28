@@ -1,4 +1,15 @@
-Heja
-Na poczatku kodu jest sekcja WYPELNIC - wypelnij ją
-Bot expi az nie zjedzie do 0 -> zjada tyle niebskich jagod ile ustawisz + tyle energoli ile ustawisz(daj -1 zeby bylo na fontanne) po czym wraca do expa
+# POKELIFE Auto Exping Bot
+
+
+## Fully functional bot for a web game, making all your daily activities done for you
+
+Bot will empty your PA bar, then refill it so it can empty it again. Code will:
+
+* Open your browser and lauch Pokelife 
+* Go battle pokemons untill your PA bar is empty
+* Refill your bar 
+* Empty it again
+
+## Find a bug?
+If you found an issue use the issues tab above.
 ![alt text](zdjecie.png)

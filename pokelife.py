@@ -10,14 +10,14 @@ from selenium.webdriver.common.by import By
 import time 
 import re
 #==========wypelnic==============
-nick = "veyrill"
-haslo = "245583lol"
+nick = "xx"
+haslo = "x"
 jaki_pokeball = "2"
 jaki_pokemon = "1"
 jaka_dzicz = "4"
 jagody_do_zjedzenia = "1"
-energole_do_wypicia = "1"
-ile_wisniowek = 5
+energole_do_wypicia = "4"
+ile_wisniowek = 10
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -34,7 +34,7 @@ element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")
 element.click()
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.1)
+driver.implicitly_wait(0.25)
 def petla_expienie():
     while (True):
         try:
@@ -44,13 +44,15 @@ def petla_expienie():
             PA = int(text.split('/')[0].strip())
             if PA < 5:
                 break
+            
             #wybranie pokemona
             element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
             element.click()
-            time.sleep(0.4)
+            time.sleep(1)
         except NoSuchElementException:
             try:
                 #pokeball
+                time.sleep(1)
                 element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
                 element.click()
             except NoSuchElementException:
@@ -207,7 +209,5 @@ element.click()
 time.sleep(0.2)
 
 petla_expienie()
-
-wisniowki()
 
 time.sleep(99999)
