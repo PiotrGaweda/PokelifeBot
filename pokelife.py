@@ -6,18 +6,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import StaleElementReferenceException
 
 import time 
 import re
 #==========wypelnic==============
-nick = "xx"
-haslo = "x"
+nick = "bestblake" 
+haslo = "serwer12"
 jaki_pokeball = "2"
 jaki_pokemon = "1"
-jaka_dzicz = "4"
+jaka_dzicz = "3"
 jagody_do_zjedzenia = "1"
-energole_do_wypicia = "4"
-ile_wisniowek = 10
+energole_do_wypicia = "5"
+ile_wisniowek = 0
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -32,27 +33,63 @@ search = driver.find_element(by=By.NAME, value='haslo')
 search.send_keys(haslo)  
 element = driver.find_element(By.XPATH, "//button[contains(text(),'Zaloguj')]")  
 element.click()
+time.sleep(1)
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.25)
+driver.implicitly_wait(0.0065)
 def petla_expienie():
     while (True):
         try:
             #sprawdzanie PA
-            xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span')
+            time.sleep(0.01)
+            xPA = element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[1]/div/div/span') 
             text = xPA.text
             PA = int(text.split('/')[0].strip())
             if PA < 5:
                 break
-            
+        except StaleElementReferenceException:
+            continue
+        try:
+            #sprawdzenie ateczki
+            element = driver.find_element(By.XPATH, '//*[@id="sidebar"]/div[1]/div[2]/div[7]/div')
+            xHP = element.text
+            HP = int(xHP.split('.')[0].replace('%', '').strip())
+            if HP == 0:
+                #SKROT NA PASKU SZPITAL
+                element = driver.find_element(By.XPATH,'//*[@id="skrot_leczenie"]/div/img')
+                element.click()
+                time.sleep(0.1)
+                if nick == "veyreal":
+                    #KLIKNIECIE W CZERWONE JAGODY
+                    element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[3]/div[1]/div[4]/button')
+                    time.sleep(0.01)
+                    element.click()
+                    #klineniecie w dzicz
+                    element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li['+str(jaka_dzicz)+']/a/img')
+                    time.sleep(0.01)
+                    element.click()
+                    continue
+                else:
+                    #klikniecie w regen za yeny 
+                    element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[3]/div[1]/div[2]/button')
+                    time.sleep(0.01)
+                    element.click()
+                    #klineniecie w dzicz
+                    element = driver.find_element(By.XPATH,'//*[@id="pasek_skrotow"]/ul/li['+str(jaka_dzicz)+']/a/img')
+                    time.sleep(0.01)
+                    element.click()
+                    continue
+                
+        except StaleElementReferenceException:
+            continue
+        try:
             #wybranie pokemona
+            time.sleep(0.18)
             element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/div[2]/div['+str(jaki_pokemon)+']/button/img')
             element.click()
-            time.sleep(1)
         except NoSuchElementException:
             try:
                 #pokeball
-                time.sleep(1)
                 element = driver.find_element(By.XPATH, '//*[@id="glowne_okno"]/div/div[2]/form/center/div/label['+str(jaki_pokeball)+']/img')
                 element.click()
             except NoSuchElementException:
@@ -146,7 +183,7 @@ def regen():
             time.sleep(1)
             
             #fontanna
-            element = driver.find_element(By.XPATH,'//*[@id="mapa_stowarzyszenia"]/img[68]')
+            element = driver.find_element(By.XPATH,'//*[@id="mapa_stowarzyszenia"]/img[73]')
             element.click()
             time.sleep(1)
             
@@ -185,6 +222,7 @@ def wisniowki():
         time.sleep(1)
         element = driver.find_element(By.XPATH,'//*[@id="plecak-duzy_napoj_energetyczny"]/div/div/div[3]/div/div/form/div/span/button')
         element.click()
+        time.sleep(1)
         
         #zatwierdzenie v2
         element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[2]/div/button[2]')
@@ -209,5 +247,7 @@ element.click()
 time.sleep(0.2)
 
 petla_expienie()
+
+#wisniowki()
 
 time.sleep(99999)
