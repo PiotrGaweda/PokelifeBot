@@ -10,6 +10,7 @@ from selenium.common.exceptions import StaleElementReferenceException
 
 import time 
 import re
+import datetime
 #==========wypelnic==============
 nick = "bestblake" 
 haslo = "serwer12"
@@ -18,7 +19,7 @@ jaki_pokemon = "1"
 jaka_dzicz = "3"
 jagody_do_zjedzenia = "1"
 energole_do_wypicia = "5"
-ile_wisniowek = 0
+ile_wisniowek = 80
 #================================
 driver = webdriver.Chrome()
 actions = ActionChains(driver)
@@ -36,7 +37,7 @@ element.click()
 time.sleep(1)
 
 #czekanie na logowanie(!!!!!!!!!!!MOZE CRASHOWAĆ PRZY DLUZSZYM UZYCIU BOTA IDKIDK!!!!!!!!!)
-driver.implicitly_wait(0.0065)
+driver.implicitly_wait(0.0125)
 def petla_expienie():
     while (True):
         try:
@@ -59,7 +60,7 @@ def petla_expienie():
                 element = driver.find_element(By.XPATH,'//*[@id="skrot_leczenie"]/div/img')
                 element.click()
                 time.sleep(0.1)
-                if nick == "veyreal":
+                if nick == "veyggreal":
                     #KLIKNIECIE W CZERWONE JAGODY
                     element = driver.find_element(By.XPATH,'//*[@id="glowne_okno"]/div/div[3]/div[1]/div[4]/button')
                     time.sleep(0.01)
@@ -200,6 +201,9 @@ def wisniowki():
         time.sleep(1)
         element = driver.find_element(By.XPATH,'//*[@id="menu-collapse"]/ul/li[1]/a')
         element.click()
+        print(x)
+        now = datetime.datetime.now()
+        print(now.hour,now.minute)
         
         #klikniecie na plecak
         time.sleep(1)
@@ -248,6 +252,6 @@ time.sleep(0.2)
 
 petla_expienie()
 
-#wisniowki()
+wisniowki()
 
 time.sleep(99999)
